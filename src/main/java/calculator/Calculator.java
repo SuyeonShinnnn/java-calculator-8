@@ -10,13 +10,13 @@ public class Calculator {
         System.out.println("덧셈할 문자열을 입력해 주세요.");
         input = readLine();
 
-        String[] numbers = splitInputs(input);
+        String[] numbers = splitInputByBasicRegex(input);
         for(String n : numbers){
             System.out.println(n);
         }
     }
 
-    public String[] splitInputs(String input) {
+    public String[] splitInputByBasicRegex(String input) {
         return input.split(basicRegex);
     }
 }
