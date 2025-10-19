@@ -3,20 +3,46 @@ package calculator;
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
 public class Calculator {
-    private final String basicRegex = ",|:";
+    private String seperator;
+    private String expression;
+
+    public Calculator() { this.seperator = ",|:"; }
 
     public void runCalculator() {
         System.out.println("덧셈할 문자열을 입력해 주세요.");
         String input = readLine();
 
-        String[] splitInputs = splitInputByBasicRegex(input);
-        int[] numbers = convertStringToInteger(splitInputs);
+        searchSeperator(input);
+
+        String[] splitExpression = splitInputByBasicRegex();
+        int[] numbers = convertStringToInteger(splitExpression);
         int result = sumNumbers(numbers);
-        System.out.println(result);
+        System.out.println("결과 : " + result);
     }
 
-    public String[] splitInputByBasicRegex(String input) {
-        return input.split(basicRegex);
+    public void searchSeperator(String input) {
+        if(isCustomSeperator(input)) {
+            setCustomSeperator(input);
+        }
+        else {
+            expression = input;
+        }
+    }
+
+    public boolean isCustomSeperator(String input) {
+        if(!input.startsWith("//")) return false;
+        if(input.split("\\\\n").length != 2) return false;
+        return true;
+    }
+
+    public void setCustomSeperator(String input) {
+        String[] i = input.split("\\\\n");
+        seperator = i[0].split("//")[1];
+        expression =  i[1];
+    }
+
+    public String[] splitInputByBasicRegex() {
+        return expression.split(seperator);
     }
 
     public int[] convertStringToInteger(String[] inputs) {
