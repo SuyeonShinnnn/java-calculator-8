@@ -11,6 +11,8 @@ public class Calculator {
 
         String[] splitInputs = splitInputByBasicRegex(input);
         int[] numbers = convertStringToInteger(splitInputs);
+        int result = sumNumbers(numbers);
+        System.out.println(result);
     }
 
     public String[] splitInputByBasicRegex(String input) {
@@ -38,5 +40,13 @@ public class Calculator {
             return false;
         }
         return true;
+    }
+
+    public int sumNumbers(int[] nums) {
+        int sum = 0;
+        for(int n : nums) {
+            sum += n;
+        }
+        return sum;
     }
 }
